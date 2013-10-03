@@ -9,9 +9,9 @@ public class PrintPrimes {
 
   /* Constructor */
   public PrintPrimes(int numberOfPrimes, int rowsPerPage, int columnsPerPage, int ORDMAX) {
-    this.numberOfPrimes   = numberOfPrimes;
-    this.rowsPerPage  = rowsPerPage;
-    this.columnsPerPage  = columnsPerPage;
+    this.numberOfPrimes = numberOfPrimes;
+    this.rowsPerPage = rowsPerPage;
+    this.columnsPerPage = columnsPerPage;
     this.ORDMAX = ORDMAX;
     this.listOfPrimes = new int[numberOfPrimes + 1];
   }
@@ -24,6 +24,8 @@ public class PrintPrimes {
       printPrimes.printPrimes();
   }
 
+  /* Method calculatePrimes() that implmements the Sieve of Eratostheme algorithm for finding
+   * prime numbers. Also, uses helper method calculateOddPrimes() */
   public void calculatePrimes() {
       /* Two is the only even prime. All other prime numbers are odd.
        * To simplify the code, we simply add 2 as a prime number, and
@@ -33,22 +35,28 @@ public class PrintPrimes {
       listOfPrimes[1] = 2;
       calculateOddPrimes();
   }
-
+  
+  /* Helper method of calculatePrimes() */
   private void calculateOddPrimes() {
+      
+      // declare local variables
       boolean isPrime;
       int N;
       int MULT[] = new int[ORDMAX + 1];
       
+      // initialize loval variables
       int currentOddNumber = 1;
       int ORD = 2;
-      int SQUARE = 9;
+      int square = 9;
 
       for(int primesFoundSoFar = 2; primesFoundSoFar <= numberOfPrimes; primesFoundSoFar++) {
         do {
+          // only check odd numbers since even numbers are not prime
           currentOddNumber = currentOddNumber + 2;
-          if (currentOddNumber == SQUARE) {
+          
+          if (currentOddNumber == square) {
             ORD = ORD + 1;
-            SQUARE = listOfPrimes[ORD] * listOfPrimes[ORD];
+            square = listOfPrimes[ORD] * listOfPrimes[ORD];
             MULT[ORD - 1] = currentOddNumber;
           }
           N = 2;
