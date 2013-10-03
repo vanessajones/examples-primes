@@ -2,22 +2,20 @@ public class PrintPrimes {
   int numberOfPrimes;
   int numberOfRows;
   int numberOfColumns;
-  int WW;
   int ORDMAX;
   int listOfPrimes[];
 
-  public PrintPrimes(int numberOfPrimes, int numberOfRows, int numberOfColumns, int WW, int ORDMAX) {
+  public PrintPrimes(int numberOfPrimes, int numberOfRows, int numberOfColumns, int ORDMAX) {
     this.numberOfPrimes   = numberOfPrimes;
     this.numberOfRows  = numberOfRows;
     this.numberOfColumns  = numberOfColumns;
-    this.WW  = WW;
     this.ORDMAX = ORDMAX;
     this.listOfPrimes = new int[numberOfPrimes + 1];
   }
 
 
   public static void main(String[] args) {
-      PrintPrimes printPrimes = new PrintPrimes(300, 50, 4, 10, 30);
+      PrintPrimes printPrimes = new PrintPrimes(300, 50, 4, 30);
       printPrimes.calculatePrimes();
       printPrimes.printPrimes();
   }
@@ -58,7 +56,7 @@ public class PrintPrimes {
               JPRIME = false;
             N = N + 1;
           }
-        } while (!JPRIME);
+        } while (!JPRIME); 
         listOfPrimes[primesFoundSoFar] = J;
       }
     }
