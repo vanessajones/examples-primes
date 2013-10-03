@@ -52,15 +52,15 @@ public class PrintPrimes {
             MULT[ORD - 1] = currentOddNumber;
           }
           N = 2;
-          isPrime = false;
-          while (N < ORD && !(isPrime)) {
+          isPrime = true;
+          while (N < ORD && isPrime) {
             while (MULT[N] < currentOddNumber)
               MULT[N] = MULT[N] + listOfPrimes[N] + listOfPrimes[N];
             if (MULT[N] == currentOddNumber)
-              isPrime= true;
+              isPrime= false;
             N = N + 1;
           }
-        } while (isPrime); 
+        } while (!isPrime); 
         listOfPrimes[primesFoundSoFar] = currentOddNumber;
       }
     }
