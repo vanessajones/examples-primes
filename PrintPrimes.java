@@ -31,7 +31,7 @@ public class PrintPrimes {
   }
 
   private void calculateOddPrimes() {
-      boolean JPRIME;
+      boolean isPrime;
       int N;
       int MULT[] = new int[ORDMAX + 1];
 
@@ -48,15 +48,15 @@ public class PrintPrimes {
             MULT[ORD - 1] = J;
           }
           N = 2;
-          JPRIME = true;
-          while (N < ORD && JPRIME) {
+          isPrime = false;
+          while (N < ORD && !(isPrime)) {
             while (MULT[N] < J)
               MULT[N] = MULT[N] + listOfPrimes[N] + listOfPrimes[N];
             if (MULT[N] == J)
-              JPRIME = false;
+              isPrime= true;
             N = N + 1;
           }
-        } while (!JPRIME); 
+        } while (isPrime); 
         listOfPrimes[primesFoundSoFar] = J;
       }
     }
