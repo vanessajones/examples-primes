@@ -1,10 +1,13 @@
 public class PrintPrimes {
+  
+  /* Class variables */ 
   int numberOfPrimes;
   int rowsPerPage;
   int columnsPerPage;
   int ORDMAX;
   int listOfPrimes[];
 
+  /* Constructor */
   public PrintPrimes(int numberOfPrimes, int rowsPerPage, int columnsPerPage, int ORDMAX) {
     this.numberOfPrimes   = numberOfPrimes;
     this.rowsPerPage  = rowsPerPage;
@@ -13,7 +16,8 @@ public class PrintPrimes {
     this.listOfPrimes = new int[numberOfPrimes + 1];
   }
 
-
+  /* Main Method: initializes a printPrimes Object, and calls the calculatePrimes & 
+   * printPrimes methods to calculate the first 300 primes and print them */
   public static void main(String[] args) {
       PrintPrimes printPrimes = new PrintPrimes(300, 50, 4, 30);
       printPrimes.calculatePrimes();
