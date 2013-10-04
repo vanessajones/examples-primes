@@ -4,19 +4,19 @@ public class PrintPrimes {
   int numberOfPrimes;
   int rowsPerPage;
   int columnsPerPage;
-  int ORDMAX;
+  int comparisonMax;
   int listOfPrimes[];
 
   /* Constructor */
-  public PrintPrimes(int numberOfPrimes, int rowsPerPage, int columnsPerPage, int ORDMAX) {
+  public PrintPrimes(int numberOfPrimes, int rowsPerPage, int columnsPerPage, int comparisonMax) {
     this.numberOfPrimes = numberOfPrimes;
     this.rowsPerPage = rowsPerPage;
     this.columnsPerPage = columnsPerPage;
-    this.ORDMAX = ORDMAX;
+    this.comparisonMax = comparisonMax;
     this.listOfPrimes = new int[numberOfPrimes + 1];
   }
 
-  /* Main Method: initializes a printPrimes Object, and calls the calculatePrimes & 
+  /* Main Method: initializes a printPrimes object, and calls the calculatePrimes & 
    * printPrimes methods to calculate the first 300 primes and print them */
   public static void main(String[] args) {
       PrintPrimes printPrimes = new PrintPrimes(300, 50, 4, 30);
@@ -24,7 +24,7 @@ public class PrintPrimes {
       printPrimes.printPrimes();
   }
 
-  /* Method calculatePrimes() that implmements the Sieve of Eratostheme algorithm for finding
+  /* Method calculatePrimes() that implemements the Sieve of Eratostheme algorithm for finding
    * prime numbers. Also, uses helper method calculateOddPrimes() */
   public void calculatePrimes() {
       /* Two is the only even prime. All other prime numbers are odd.
@@ -41,12 +41,12 @@ public class PrintPrimes {
       
       // declare local variables
       boolean isPrime;
-      int N;
-      int MULT[] = new int[ORDMAX + 1];
+      int primeIndex;
+      int multipleOfPrime[] = new int[comparisonMax + 1];
       
       // initialize loval variables
       int currentOddNumber = 1;
-      int ORD = 2;
+      int comparisonIndex = 2;
       int square = 9;
 
       for(int primesFoundSoFar = 2; primesFoundSoFar <= numberOfPrimes; primesFoundSoFar++) {
@@ -55,20 +55,25 @@ public class PrintPrimes {
           currentOddNumber = currentOddNumber + 2;
           
           if (currentOddNumber == square) {
-            ORD = ORD + 1;
-            square = listOfPrimes[ORD] * listOfPrimes[ORD];
-            MULT[ORD - 1] = currentOddNumber;
+            comparisonIndex = comparisonIndex + 1;
+            square = listOfPrimes[comparisonIndex] * listOfPrimes[comparisonIndex];
+            multipleOfPrime[comparisonIndex - 1] = currentOddNumber;
           }
-          N = 2;
+          
+          primeIndex = 2;
           isPrime = true;
-          while (N < ORD && isPrime) {
-            while (MULT[N] < currentOddNumber)
-              MULT[N] = MULT[N] + listOfPrimes[N] + listOfPrimes[N];
-            if (MULT[N] == currentOddNumber)
+          
+          while (primeIndex < comparisonIndex && isPrime) {
+            
+            while (multipleOfPrime[primeIndex] < currentOddNumber)
+              multipleOfPrime[primeIndex] = multipleOfPrime[primeIndex] + listOfPrimes[primeIndex] + listOfPrimes[primeIndex];
+            
+            if (multipleOfPrime[primeIndex] == currentOddNumber)
               isPrime= false;
-            N = N + 1;
+            primeIndex = primeIndex + 1;
           }
         } while (!isPrime); 
+        
         listOfPrimes[primesFoundSoFar] = currentOddNumber;
       }
     }
@@ -88,7 +93,9 @@ public class PrintPrimes {
           System.out.println("");
           
           
-          /* Loop to print the array listOfPrime[] on each page
+          /* Loop to print the array listOfPrime[] 
+           * Every page will print numberOfPrimes primes, in rowsPerPage rows and 
+           * columnsPerPage columns
            * The columns of every row are printed first before printing the next row */
           
           // for every row
