@@ -25,7 +25,8 @@ public class PrintPrimes {
   }
 
   /* Method calculatePrimes() that implemements the Sieve of Eratostheme algorithm for finding
-   * prime numbers. Also, uses helper method calculateOddPrimes() */
+   * prime numbers. By eliminating numbers that are multiples of prime numbers, this algorithm
+   * can find prime numbers. Also, uses helper method calculateOddPrimes() */
   public void calculatePrimes() {
       /* Two is the only even prime. All other prime numbers are odd.
        * To simplify the code, we simply add 2 as a prime number, and
@@ -42,18 +43,19 @@ public class PrintPrimes {
       // declare local variables
       boolean isPrime;
       int primeIndex;
-      int multipleOfPrime[] = new int[comparisonMax + 1];
+      int multipleOfPrime[] = new int[comparisonMax + 1]; // array to stores the multiple of primes to check if Prime
       
       // initialize local variables
       int currentOddNumber = 1;
-      int comparisonIndex = 2;
+      int comparisonIndex = 2; 
       int square = 9;
-
+      
       for(int primesFoundSoFar = 2; primesFoundSoFar <= numberOfPrimes; primesFoundSoFar++) {
         do {
           // only check odd numbers since even numbers are not prime
           currentOddNumber = currentOddNumber + 2;
           
+          // if currentOddNumber == square, update range of comparison
           if (currentOddNumber == square) {
             comparisonIndex = comparisonIndex + 1;
             square = listOfPrimes[comparisonIndex] * listOfPrimes[comparisonIndex];
@@ -61,23 +63,26 @@ public class PrintPrimes {
           }
           
           primeIndex = 2;
-          isPrime = true;
+          isPrime = true; //assume all numbers are potentially prime
           
-          while (primeIndex < comparisonIndex && isPrime) {
+          while (primeIndex < comparisonIndex && isPrime) { 
             
+            // if the multiples are smaller than the currentOddNumber, shift the list to allow the currentOddNumber to be a
+            // multiple of a prime number 
             while (multipleOfPrime[primeIndex] < currentOddNumber){
               multipleOfPrime[primeIndex] = multipleOfPrime[primeIndex] + listOfPrimes[primeIndex] + listOfPrimes[primeIndex];
             }
             
+            // if the currentOddNumber is a multiple of a prime number, set isPrime to false and thus stop the while loop
             if (multipleOfPrime[primeIndex] == currentOddNumber){
               isPrime= false;
             }
-            
+            // if the currentOddNumber is not a multiple of the prime number, update primeIndex and check other multiples
             primeIndex = primeIndex + 1;
           }
-        } while (!isPrime); 
+        } while (!isPrime); // number is not a multiple of a prime number, it is therefore Prime
         
-        listOfPrimes[primesFoundSoFar] = currentOddNumber;
+        listOfPrimes[primesFoundSoFar] = currentOddNumber; //store currentOddNumber in the array of prime numbers
       }
     }
   
