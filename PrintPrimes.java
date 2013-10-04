@@ -17,11 +17,11 @@ public class PrintPrimes {
   }
 
   /* Main Method: initializes a printPrimes object, and calls the calculatePrimes & 
-   * printPrimes methods to calculate the first 300 primes and print them */
+   * printPrimesScreen methods to calculate the first 300 primes and print them */
   public static void main(String[] args) {
       PrintPrimes printPrimes = new PrintPrimes(300, 50, 4, 30);
       printPrimes.calculatePrimes();
-      printPrimes.printPrimes();
+      printPrimes.printPrimesScreen();
   }
 
   /* Method calculatePrimes() that implemements the Sieve of Eratostheme algorithm for finding
@@ -44,7 +44,7 @@ public class PrintPrimes {
       int primeIndex;
       int multipleOfPrime[] = new int[comparisonMax + 1];
       
-      // initialize loval variables
+      // initialize local variables
       int currentOddNumber = 1;
       int comparisonIndex = 2;
       int square = 9;
@@ -65,11 +65,14 @@ public class PrintPrimes {
           
           while (primeIndex < comparisonIndex && isPrime) {
             
-            while (multipleOfPrime[primeIndex] < currentOddNumber)
+            while (multipleOfPrime[primeIndex] < currentOddNumber){
               multipleOfPrime[primeIndex] = multipleOfPrime[primeIndex] + listOfPrimes[primeIndex] + listOfPrimes[primeIndex];
+            }
             
-            if (multipleOfPrime[primeIndex] == currentOddNumber)
+            if (multipleOfPrime[primeIndex] == currentOddNumber){
               isPrime= false;
+            }
+            
             primeIndex = primeIndex + 1;
           }
         } while (!isPrime); 
@@ -78,8 +81,9 @@ public class PrintPrimes {
       }
     }
   
-  /* Method printPrimes that prints the prime numbers found in calculatePrimes() */
-    public void printPrimes() {
+  
+  /* Method printPrimesScreen that prints the prime numbers found in calculatePrimes() */
+    public void printPrimesScreen() {
       
       //Initilaze local variables
       int pageNumber = 1;
@@ -101,11 +105,12 @@ public class PrintPrimes {
           // for every row
           for (int rowIndex = pageOffset; rowIndex < (pageOffset + rowsPerPage); rowIndex++){
             // for every column
-            for (int columnIndex = 0; columnIndex < columnsPerPage; columnIndex++)
-              // print only the adequate number of prime 
+            for (int columnIndex = 0; columnIndex < columnsPerPage; columnIndex++){
+              // print only the adequate number of primes 
               if (rowIndex + (columnIndex * rowsPerPage) <= numberOfPrimes)
                 // print the prime at the index
                 System.out.format("%10d", listOfPrimes[rowIndex + (columnIndex * rowsPerPage)]);
+            }
             System.out.println("");
           }
           
